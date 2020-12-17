@@ -61,5 +61,34 @@ public class CityController {
         modelAndView.addObject("city", city);
         return  modelAndView;
     }
+    @GetMapping("/delete-city/{id}")
+    public ModelAndView deleteForm(@PathVariable Long id){
+        ModelAndView modelAndView = new ModelAndView("/delete");
 
+        modelAndView.addObject("id", id);
+        return modelAndView;
+    }
+
+    @PostMapping("/delete")
+    public ModelAndView modelAndView(@RequestParam Long id){
+        ModelAndView modelAndView = new ModelAndView("/list");
+        iCityService.remove(id);
+        modelAndView.addObject("message", "xoa thanh cong");
+        return modelAndView;
+    }
+    @GetMapping("/edit-city/{id}")
+    public ModelAndView editForm(@PathVariable Long id){
+        ModelAndView modelAndView = new ModelAndView("/edit");
+        City city = iCityService.findAllById(id);
+        modelAndView.addObject("city", city);
+        return modelAndView;
+    }
+    @PostMapping("/edit")
+    public ModelAndView update(@ModelAttribute City city){
+        ModelAndView modelAndView = new ModelAndView("/edit");
+        iCityService.save(city);
+        modelAndView.addObject("city", new City());
+        modelAndView.addObject("message", "update thanh cong");
+        return modelAndView;
+    }
 }

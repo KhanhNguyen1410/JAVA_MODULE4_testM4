@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/list :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<center>
+    <body>
+    <h3 th:if="${message}">
+        <span th:text="${message}"></span>
+    </h3>
+    <h3><a class="btn btn-success" th:href="@{/list}">List</a></h3>
+    <form th:action="@{/edit}" th:object="${city}" method="post">
+        <table>
+            <tr>
+                <td>Ten</td>
+                <td><input type="text"th:field="*{name}">
+                    <input type="hidden" th:field="*{id}"></td>
+                <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>
+            </tr>
+            <tr>
+                <td>dien tich</td>
+                <td><input type="text" th:field="*{area}"/></td>
+                <td th:if="${#fields.hasErrors('area')}" th:errors="*{area}">Name Error</td>
+            </tr>
+            <tr>
+                <td>country</td>
+                <td><select  th:field="*{country}">
+                    <option th:each="c:${countries}" th:value="${c.id}" th:text="${c.name}"></option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>dan so</td>
+                <td><input type="text" th:field="*{population}"/></td>
+                <td th:if="${#fields.hasErrors('population')}" th:errors="*{population}">Name Error</td>
+            </tr>
+            <tr>
+                <td>GDP</td>
+                <td><input type="text" th:field="*{GDP}"/></td>
+                <td th:if="${#fields.hasErrors('GDP')}" th:errors="*{GDP}">Name Error</td>
+            </tr>
+            <tr>
+                <td>gioi thieu</td>
+                <td><input type="text" th:field="*{description}"/></td>
+                <td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Update citi"></td>
+            </tr>
+        </table>
+    </form>
+    </body>
+</center>
+</html>
