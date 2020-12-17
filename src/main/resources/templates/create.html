@@ -10,6 +10,13 @@
     <span th:text="${message}"></span>
 </h3>
 <h3><a th:href="@{/list}">List</a></h3>
+<script type="text/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#register').attr("disabled", true);
+    });
+</script>
 <form th:action="@{/create-city}" th:object="${city}" method="post">
     <table>
         <tr>
@@ -45,10 +52,27 @@
         </tr>
         <tr>
             <td></td>
-            <td><input type="submit" value="Create city"></td>
+            <td><input type="submit" id="register" value="Create city"></td>
         </tr>
     </table>
 </form>
+<script>
+    (function () {
+        $('form  input').keyup(function () {
+            var empty = false;
+            $('form  input').each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+            if (empty) {
+                $('#register').attr('disabled', 'disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+            } else {
+                $('#register').removeAttr('disabled'); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+            }
+        });
+    })()
+</script>
 </body>
 </center>
 </html>
